@@ -1,0 +1,287 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { ShoppingCart, Play, ChevronRight, Star, ShieldCheck, Truck, Sparkles } from "lucide-react";
+
+/**
+ * Vesta - Apple-style Landing Page for luxury items.
+ * — Clean, minimal, spacious. Big typography. Subtle motion.
+ * — Built with React + TailwindCSS + Framer Motion.
+ * — You can easily change the content by editing the DATA object below.
+ */
+
+// --- Edit this DATA to change the content of your website! ---
+const DATA = {
+  siteName: "Vesta",
+  tagline: "Everyday luxury.",
+  nav: ["Collections", "Journal", "Our Story", "Contact"],
+  ctaPrimary: "Shop Vesta",
+  ctaSecondary: "Watch the film",
+  hero: {
+    eyebrow: "NOW AVAILABLE",
+    headline: "The Vesta Collection",
+    subhead:
+      "Crafted for elegance. Designed for daily life. Discover a new level of everyday luxury.",
+    badge: "Limited launch pieces",
+  },
+  promos: [
+    {
+      title: "Hand-poured Candles",
+      copy: "Subtly scented. Exceptionally calm.",
+      badge: "Scented Series",
+      action: "Explore",
+    },
+    {
+      title: "Porcelain Mugs",
+      copy: "Thoughtfully designed. Perfectly balanced.",
+      badge: "Signature Collection",
+      action: "Learn more",
+    },
+  ],
+  products: [
+    {
+      name: "Aurora Mug",
+      tag: "Signature",
+      price: "₹1,200",
+      colorway: ["#1f2937", "#0b1220"],
+    },
+    {
+      name: "Starlight Candle",
+      tag: "Scented",
+      price: "₹2,500",
+      colorway: ["#0b1220", "#111827"],
+    },
+    {
+      name: "New Luxury Item",
+      tag: "New",
+      price: "₹3,500",
+      colorway: ["#111827", "#1f2937"],
+    },
+  ],
+};
+
+// Gradient card background helper
+const GradientCard = ({ from = "#0b1220", to = "#111827", children }) => (
+  <div
+    className="relative overflow-hidden rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+    style={{
+      background: linear-gradient(135deg, ${from} 0%, ${to} 100%),
+    }}
+  >
+    {/* subtle noise */}
+    <div className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-40" style={{
+      backgroundImage:
+        "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 1px)",
+      backgroundSize: "6px 6px",
+    }} />
+    {children}
+  </div>
+);
+
+const NavBar = () => (
+  <div className="sticky top-0 z-40 w-full backdrop-blur supports-[backdrop-filter]:bg-white/40 bg-white/70 dark:bg-zinc-900/60 border-b border-zinc-200/60 dark:border-zinc-800">
+    <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
+      <div className="flex items-center gap-8">
+        <a href="#" className="font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">{DATA.siteName}</a>
+        <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-600 dark:text-zinc-300">
+          {DATA.nav.map((item) => (
+            <a key={item} href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">{item}</a>
+          ))}
+        </nav>
+      </div>
+      <div className="flex items-center gap-4">
+        <button className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium text-white bg-zinc-900 hover:bg-black transition-colors dark:bg-white dark:text-black dark:hover:bg-zinc-200">
+          <ShoppingCart size={16} /> Store
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+const Hero = () => (
+  <section className="relative overflow-hidden">
+    <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-zinc-50 to-white dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900" />
+    <div className="mx-auto max-w-7xl px-4 pt-16 pb-24 text-center">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <p className="mb-2 text-xs tracking-[0.2em] text-zinc-600 dark:text-zinc-400">{DATA.hero.eyebrow}</p>
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          {DATA.hero.headline}
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-300">{DATA.hero.subhead}</p>
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <a href="#buy" className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white hover:bg-black transition-colors dark:bg-white dark:text-black dark:hover:bg-zinc-200">
+            {DATA.ctaPrimary}
+          </a>
+          <a href="#film" className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 transition-colors dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800">
+            <Play size={16} /> {DATA.ctaSecondary}
+          </a>
+        </div>
+        <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">{DATA.hero.badge}</p>
+      </motion.div>
+
+      {/* Abstract product silhouette */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+        className="mx-auto mt-14 max-w-5xl"
+      >
+        <GradientCard from="#0b1220" to="#1f2937">
+          <div className="relative h-[420px] md:h-[520px]">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.div
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="h-72 w-72 md:h-96 md:w-96 rounded-[2rem] bg-gradient-to-br from-zinc-100/10 to-white/5 backdrop-blur-xl border border-white/10"
+              />
+            </div>
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent" />
+            <div className="absolute inset-0 flex flex-col items-center justify-end p-8 text-white">
+              <div className="flex items-center gap-2 text-sm opacity-80">
+                <Sparkles size={16} /> Ethically Sourced • Sustainable Materials • Handcrafted Finish
+              </div>
+            </div>
+          </div>
+        </GradientCard>
+      </motion.div>
+    </div>
+  </section>
+);
+
+const PromoRow = () => (
+  <section className="mx-auto max-w-7xl px-4 pb-16">
+    <div className="grid gap-6 md:grid-cols-2">
+      {DATA.promos.map((p, i) => (
+        <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+          <GradientCard from="#0b1220" to="#111827">
+            <div className="relative p-8 sm:p-10 text-white">
+              <div className="mb-2 text-sm opacity-70">{p.badge}</div>
+              <h3 className="text-3xl font-semibold tracking-tight">{p.title}</h3>
+              <p className="mt-2 max-w-md text-zinc-200">{p.copy}</p>
+              <a href="#" className="mt-6 inline-flex items-center gap-1 rounded-full bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur hover:bg-white/20">
+                {p.action} <ChevronRight size={16} />
+              </a>
+              <div className="pointer-events-none absolute -right-10 bottom-0 aspect-[5/3] w-56 rounded-tl-[3rem] bg-gradient-to-tr from-white/20 to-transparent" />
+            </div>
+          </GradientCard>
+        </motion.div>
+      ))}
+    </div>
+  </section>
+);
+
+const ProductGrid = () => (
+  <section id="buy" className="mx-auto max-w-7xl px-4 pb-20">
+    <h2 className="mb-6 text-center text-3xl font-semibold tracking-tight text-zinc-900 dark:text-white">Shop the Collection</h2>
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {DATA.products.map((product, idx) => (
+        <motion.div key={product.name} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.05 }}>
+          <GradientCard from={product.colorway[0]} to={product.colorway[1]}>
+            <div className="flex h-full flex-col p-5 text-white">
+              <div className="flex items-center justify-between">
+                <span className="text-xs uppercase tracking-widest opacity-70">{product.tag}</span>
+                <div className="flex items-center gap-1 text-xs opacity-80">
+                  <Star size={14} /> 4.9
+                </div>
+              </div>
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold">{product.name}</h3>
+                <p className="mt-1 text-sm text-zinc-200">{product.price}</p>
+              </div>
+              {/* This is a placeholder for your product image */}
+              <div className="mt-6 aspect-[4/3] w-full rounded-2xl bg-white/10" />
+              <div className="mt-6 flex gap-2">
+                <button className="flex-1 rounded-full bg-white px-4 py-2 text-sm font-medium text-black hover:bg-zinc-100">Buy</button>
+                <button className="flex-1 rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white/90 hover:bg-white/10">Learn more</button>
+              </div>
+            </div>
+          </GradientCard>
+        </motion.div>
+      ))}
+    </div>
+  </section>
+);
+
+const ValueProps = () => (
+  <section className="mx-auto max-w-7xl px-4 pb-24">
+    <div className="grid gap-6 sm:grid-cols-3">
+      {[{
+        icon: <ShieldCheck />, title: "Certified quality", copy: "Every item is meticulously inspected and authenticated.",
+      },{
+        icon: <Truck />, title: "Complimentary shipping", copy: "All orders are shipped free of charge worldwide.",
+      },{
+        icon: <Sparkles />, title: "Signature packaging", copy: "Delivered in our custom, reusable, and recyclable box.",
+      }].map((v) => (
+        <div key={v.title} className="rounded-3xl border border-zinc-200/70 bg-white/60 p-6 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60">
+          <div className="mb-3 text-zinc-900 dark:text-white">{v.icon}</div>
+          <div className="text-lg font-semibold text-zinc-900 dark:text-white">{v.title}</div>
+          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">{v.copy}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="border-t border-zinc-200/70 bg-zinc-50/60 py-10 text-sm text-zinc-600 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/60 dark:text-zinc-400">
+    <div className="mx-auto max-w-7xl px-4">
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+        <div>
+          <div className="font-semibold text-zinc-900 dark:text-white">Shop</div>
+          <ul className="mt-3 space-y-1">
+            {[
+              "Home Goods", "Decor", "Personal Care", "Collections", "Gift Cards",
+            ].map((i) => (
+              <li key={i}><a href="#" className="hover:text-zinc-900 dark:hover:text-white">{i}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className="font-semibold text-zinc-900 dark:text-white">Learn</div>
+          <ul className="mt-3 space-y-1">
+            {["Our Story", "Craftsmanship", "Sustainability", "Journal"].map((i) => (
+              <li key={i}><a href="#" className="hover:text-zinc-900 dark:hover:text-white">{i}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className="font-semibold text-zinc-900 dark:text-white">Support</div>
+          <ul className="mt-3 space-y-1">
+            {["Contact Us", "Shipping & Returns", "Warranty", "FAQ"].map((i) => (
+              <li key={i}><a href="#" className="hover:text-zinc-900 dark:hover:text-white">{i}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className="font-semibold text-zinc-900 dark:text-white">Connect</div>
+          <ul className="mt-3 space-y-1">
+            {["Instagram", "Facebook", "Twitter", "Pinterest"].map((i) => (
+              <li key={i}><a href="#" className="hover:text-zinc-900 dark:hover:text-white">{i}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-zinc-200/70 pt-6 text-xs text-zinc-500 dark:border-zinc-800 sm:flex-row">
+        <p>© {new Date().getFullYear()} {DATA.siteName}. All rights reserved.</p>
+        <div className="flex items-center gap-4">
+          <a href="#" className="hover:text-zinc-900 dark:hover:text-white">Privacy</a>
+          <a href="#" className="hover:text-zinc-900 dark:hover:text-white">Terms</a>
+          <a href="#" className="hover:text-zinc-900 dark:hover:text-white">India</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+);
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-white text-zinc-900 antialiased dark:bg-zinc-900 dark:text-zinc-50 font-sans">
+      <NavBar />
+      <Hero />
+      <PromoRow />
+      <ProductGrid />
+      <ValueProps />
+      <Footer />
+    </div>
+  );
+}
